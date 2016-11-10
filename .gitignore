@@ -1,0 +1,3 @@
+*.pyc
+*.sqlite
+*.sqlite-journal
