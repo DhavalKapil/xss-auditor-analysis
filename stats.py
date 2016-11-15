@@ -13,18 +13,27 @@ RANK_FILE = 'rank.json'
 EXTERNAL_JAVASCRIPTS = [
   'jquery',
   'react',
-  'bootstrap'
-  'angular'
-  'moment'
-  'socket.io'
-  'ember'
-  'backbone'
-  'reveal'
-  'underscore'
-  'lodash'
-  'mocha'
-  'meteor'
-  'mercury'
+  'bootstrap',
+  'angular',
+  'moment',
+  'socket.io',
+  'ember',
+  'backbone',
+  'reveal',
+  'underscore',
+  'lodash',
+  'mocha',
+  'meteor',
+  'mercury',
+  'dojo',
+  'ext-core',
+  'hammer',
+  'mootools',
+  'prototype',
+  'scriptaculous',
+  'swfobject',
+  'three',
+  'webfont'
 ]
 
 def parse_websites(websites):
