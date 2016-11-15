@@ -4,7 +4,7 @@ from math import ceil
 
 ALEXA_URL="http://www.alexa.com/topsites/global"
 
-def get_list(n):
+def get_top_websites_global(n=100):
   count = 0
   list = []
 
