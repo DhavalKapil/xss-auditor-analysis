@@ -5,7 +5,11 @@ JS_STATS_FILE = 'js_stats.json'
 X_XSS_STATS_FILE = 'x_xss_stats.json'
 RANK_FILE = 'rank.json'
 
+JS_STATS_IMAGE_FILE = 'js_stats.png'
 X_XSS_STATS_IMAGE_FILE = 'x_xss_stats.png'
+
+with open(JS_STATS_FILE, 'r') as infile:
+  js_stats = json.load(infile)
 
 with open(X_XSS_STATS_FILE, 'r') as infile:
   x_xss_stats = json.load(infile)
@@ -13,8 +17,24 @@ with open(X_XSS_STATS_FILE, 'r') as infile:
 with open(RANK_FILE, 'r') as infile:
   ranks = json.load(infile)
 
+def generate_js_stats():
+  data = []
+  for i in ranks:
+    rank = i[0]
+    website = i[1]
+    if website in js_stats:
+      data.append(1)
+    else:
+      data.append(0)
+  for i in range(10):
+    sum = 0
+    for j in range(0, 50):
+      sum += data[i*50 + j]
+    print(str(i*50 + 1) + " - " + str((i+1)*50) + ": " + str(sum))
+
 def percent(a, b):
   return "{0:.2f}".format((float(a)/b)*100)
+
 def generate_x_xss_chart():
   count_default = 0
   count_zero = 0
@@ -58,3 +78,4 @@ def generate_x_xss_chart():
   ar.draw()
 
 generate_x_xss_chart()
+generate_js_stats()
