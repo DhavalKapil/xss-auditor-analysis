@@ -2,3 +2,4 @@
 *.sqlite
 *.sqlite-journal
 *.json
+*.png

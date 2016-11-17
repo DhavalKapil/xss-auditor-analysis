@@ -8,7 +8,7 @@ import json
 requests_cache.install_cache('cache')
 
 JS_STATS_FILE = 'js_stats.json'
-X_XSS_STATS_FILE = 'x_xxs_stats.json'
+X_XSS_STATS_FILE = 'x_xss_stats.json'
 RANK_FILE = 'rank.json'
 EXTERNAL_JAVASCRIPTS = [
   'jquery',
@@ -38,7 +38,7 @@ EXTERNAL_JAVASCRIPTS = [
 
 def parse_websites(websites):
   js_stats = {}
-  x_xxs_stats = {}
+  x_xss_stats = {}
 
   for website in websites:
     print(website[1])
@@ -65,18 +65,18 @@ def parse_websites(websites):
       headers = {k.lower():v for k,v in response.headers.items()}
       if 'x-xss-protection' in headers:
         xss_header = headers['x-xss-protection']
-      x_xxs_stats[website[1]] = xss_header
+      x_xss_stats[website[1]] = xss_header
 
     except Exception as error:
       print(error)
       continue
-  return js_stats, x_xxs_stats
+  return js_stats, x_xss_stats
 
-websites = alexa.get_top_websites_global(50)
-js_stats, x_xxs_stats = parse_websites(websites)
+websites = alexa.get_top_websites_global(500)
+js_stats, x_xss_stats = parse_websites(websites)
 with open(JS_STATS_FILE, 'w') as outfile:
   json.dump(js_stats, outfile)
 with open(X_XSS_STATS_FILE, 'w') as outfile:
-  json.dump(x_xxs_stats, outfile)
+  json.dump(x_xss_stats, outfile)
 with open(RANK_FILE, 'w') as outfile:
   json.dump(websites, outfile)
