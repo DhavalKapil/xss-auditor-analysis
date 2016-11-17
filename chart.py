@@ -13,6 +13,8 @@ with open(X_XSS_STATS_FILE, 'r') as infile:
 with open(RANK_FILE, 'r') as infile:
   ranks = json.load(infile)
 
+def percent(a, b):
+  return "{0:.2f}".format((float(a)/b)*100)
 def generate_x_xss_chart():
   count_default = 0
   count_zero = 0
@@ -31,10 +33,7 @@ def generate_x_xss_chart():
     else:
       print(header)
 
-  print(count_default)
-  print(count_zero)
-  print(count_one)
-  print(count_block)
+  total = count_default + count_zero + count_one + count_block
 
   theme.get_options()
   theme.scale_factor = 3
@@ -42,12 +41,12 @@ def generate_x_xss_chart():
   theme.output_file = X_XSS_STATS_IMAGE_FILE
 
   data = []
-  data.append(["default", count_default])
-  data.append(["0", count_zero])
-  data.append(["1; mode=block", count_block])
-  data.append(["1", count_one])
+  data.append(["default(" + percent(count_default, total) + "%)", count_default])
+  data.append(["0(" + percent(count_zero, total) + "%)", count_zero])
+  data.append(["1; mode=block(" + percent(count_block, total) + "%)", count_block])
+  data.append(["1(" + percent(count_one, total) + "%)", count_one])
 
-  ar = area.T(size=(300,300), legend=legend.T(),
+  ar = area.T(size=(350,350), legend=legend.T(),
               x_grid_style=None, y_grid_style=None)
   plot = pie_plot.T(data=data, arc_offsets=[0,0,0,0],
                     fill_styles=[fill_style.black,
