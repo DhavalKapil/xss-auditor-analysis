@@ -43,7 +43,7 @@ def parse_websites(websites):
   for website in websites:
     print(website[1])
     try:
-      response = requests.get('http://' + website[1])      
+      response = requests.get('http://' + website[1])
       soup = BeautifulSoup(response.text, 'lxml')
 
       # Extracting script file sources
@@ -72,7 +72,7 @@ def parse_websites(websites):
       continue
   return js_stats, x_xss_stats
 
-websites = alexa.get_top_websites_global(500)
+websites = alexa.top_list(500)
 js_stats, x_xss_stats = parse_websites(websites)
 with open(JS_STATS_FILE, 'w') as outfile:
   json.dump(js_stats, outfile)
